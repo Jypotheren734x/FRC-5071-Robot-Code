@@ -1,18 +1,18 @@
-
 package org.usfirst.frc.team5071.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team5071.robot.subsystems.Pneumatics;
 
-import org.usfirst.frc.team5071.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RobotCommand extends Command {
+public class AutonomousCommand extends Command {
 
-    public RobotCommand() {
+    public AutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.exampleSubsystem);
+        // eg. requires(chassis);
+    	requires(new Pneumatics());
     }
 
     // Called just before this Command runs the first time
