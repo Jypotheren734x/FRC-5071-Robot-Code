@@ -4,7 +4,8 @@
 	<classpathentry kind="var" path="wpilib" sourcepath="wpilib.sources"/>
 	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="jaw.jar"/>
-	<classpathentry kind="lib" path="XboxController.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nickolas/Documents/GitHub/FRC-5071-Robot-Code/XBOXController/lib/jaw.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nickolas/Documents/GitHub/FRC-5071-Robot-Code/XBOXController/lib/XboxController.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Nickolas/Documents/GitHub/FRC-5071-Robot-Code/JXInput_0.3.4/JXInput_0.3.4/jxinput.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

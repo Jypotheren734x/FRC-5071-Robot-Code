@@ -2,11 +2,14 @@ package org.usfirst.frc.team5071.robot;
 
 import org.usfirst.frc.team5071.robot.commands.AutonomousCommand;
 
-import ch.aplu.xboxcontroller.XboxController;
-import ch.aplu.xboxcontroller.XboxControllerAdapter;
+import de.hardcode.jxinput.Axis;
+import de.hardcode.jxinput.event.JXInputAxisEvent;
+import de.hardcode.jxinput.event.JXInputAxisEventListener;
+import de.hardcode.jxinput.event.JXInputEventManager;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -18,13 +21,13 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends IterativeRobot implements JXInputAxisEventListener {
 
 	public static OI oi;
-	RobotDrive robit;
-	Joystick joy;
-	XboxController xbox = new XboxController();
-	Command autonomousCommand;
+	public RobotDrive robit;
+	public Joystick joy;
+	// public XboxController xbox = new XboxController();
+	public Command autonomousCommand;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -32,15 +35,16 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
-		xbox.addXboxControllerListener(new XboxControllerAdapter() {
-			public void leftTrigger(double value) {
-
-			}
-
-			public void rightTrigger(double value) {
-			}
-
-		});
+		/*
+		 * xbox.addXboxControllerListener(new XboxControllerAdapter() { public
+		 * void leftTrigger(double value) {
+		 * 
+		 * }
+		 * 
+		 * public void rightTrigger(double value) { }
+		 * 
+		 * });
+		 */
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutonomousCommand();
 		robit = new RobotDrive(0, 1);
@@ -94,5 +98,19 @@ public class Robot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	public Robot(Axis axis) {
+		JXInputEventManager.addListener(this, axis, 0.75);
+	}
+
+	@Override
+	public void changed(JXInputAxisEvent robotAxis) {
+		// TODO Auto-generated method stub
+		if (robotAxis.getAxis().hasChanged()) {
+			robit.drive(robotAxis.getAxis().getValue(), robotAxis.getAxis().getValue());
+		} else {
+			robit.drive(0, 0);
+		}
 	}
 }
