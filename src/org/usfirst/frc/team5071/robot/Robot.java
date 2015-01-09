@@ -2,14 +2,10 @@ package org.usfirst.frc.team5071.robot;
 
 import org.usfirst.frc.team5071.robot.commands.AutonomousCommand;
 
-import de.hardcode.jxinput.Axis;
-import de.hardcode.jxinput.event.JXInputAxisEvent;
-import de.hardcode.jxinput.event.JXInputAxisEventListener;
-import de.hardcode.jxinput.event.JXInputEventManager;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -21,13 +17,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends IterativeRobot implements JXInputAxisEventListener {
+public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public RobotDrive robit;
 	public Joystick joy;
-	// public XboxController xbox = new XboxController();
 	public Command autonomousCommand;
+	public boolean button;
+	public double axisXl, axisYl, axisXr, axisYr;
+	public Talon talon = new Talon(0);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -35,20 +33,12 @@ public class Robot extends IterativeRobot implements JXInputAxisEventListener {
 	 */
 	public void robotInit() {
 		oi = new OI();
-		/*
-		 * xbox.addXboxControllerListener(new XboxControllerAdapter() { public
-		 * void leftTrigger(double value) {
-		 * 
-		 * }
-		 * 
-		 * public void rightTrigger(double value) { }
-		 * 
-		 * });
-		 */
+
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutonomousCommand();
-		robit = new RobotDrive(0, 1);
 		joy = new Joystick(0);
+		talon.enableDeadbandElimination(true);
+
 	}
 
 	public void disabledPeriodic() {
@@ -73,8 +63,9 @@ public class Robot extends IterativeRobot implements JXInputAxisEventListener {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
+		}
 	}
 
 	/**
@@ -90,7 +81,17 @@ public class Robot extends IterativeRobot implements JXInputAxisEventListener {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		robit.arcadeDrive(joy);
+		button = joy.getRawButton(1);
+		while(true){	
+			axisXl = joy.getRawAxis(0);
+			axisYl = joy.getRawAxis(1);
+			talon.set(axisXl);
+		}
+		/*if (button == true) {
+			talon.set(.5);
+		} else if (button == false) {
+			talon.set(0);
+		}*/
 	}
 
 	/**
@@ -98,19 +99,5 @@ public class Robot extends IterativeRobot implements JXInputAxisEventListener {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
-	}
-
-	public Robot(Axis axis) {
-		JXInputEventManager.addListener(this, axis, 0.75);
-	}
-
-	@Override
-	public void changed(JXInputAxisEvent robotAxis) {
-		// TODO Auto-generated method stub
-		if (robotAxis.getAxis().hasChanged()) {
-			robit.drive(robotAxis.getAxis().getValue(), robotAxis.getAxis().getValue());
-		} else {
-			robit.drive(0, 0);
-		}
 	}
 }
