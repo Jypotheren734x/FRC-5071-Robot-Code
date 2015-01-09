@@ -2,6 +2,8 @@ package org.usfirst.frc.team5071.robot;
 
 import org.usfirst.frc.team5071.robot.commands.AutonomousCommand;
 
+import ch.aplu.xboxcontroller.XboxController;
+import ch.aplu.xboxcontroller.XboxControllerAdapter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -21,7 +23,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	RobotDrive robit;
 	Joystick joy;
-
+	XboxController xbox = new XboxController();
 	Command autonomousCommand;
 
 	/**
@@ -30,6 +32,15 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
+		xbox.addXboxControllerListener(new XboxControllerAdapter() {
+			public void leftTrigger(double value) {
+
+			}
+
+			public void rightTrigger(double value) {
+			}
+
+		});
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutonomousCommand();
 		robit = new RobotDrive(0, 1);

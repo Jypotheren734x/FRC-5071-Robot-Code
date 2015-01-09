@@ -13,6 +13,5 @@ public class OI {
 	JoystickButton button = new JoystickButton(Joy, 12);
 
 	public OI() {
-		button.whenPressed(new Command());
 	}
 }
