@@ -23,8 +23,8 @@ public class Robot extends IterativeRobot {
 	public RobotDrive robit;
 	public Joystick joy;
 	public Command autonomousCommand;
-	public boolean button;
-	public double axisXl, axisYl, axisXr, axisYr;
+	public boolean AButton, BButton, XButton, YButton, RightBumper, LeftBumper;
+	public double axisXleft, axisYleft, axisXright, axisYright, Trigger;
 	public Talon talon = new Talon(0);
 
 	/**
@@ -81,17 +81,21 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		button = joy.getRawButton(1);
-		while(true){	
-			axisXl = joy.getRawAxis(0);
-			axisYl = joy.getRawAxis(1);
-			talon.set(axisXl);
+		AButton = joy.getRawButton(1);
+		BButton = joy.getRawButton(2);
+		XButton = joy.getRawButton(3);
+		YButton = joy.getRawButton(4);
+		while (true) {
+			axisXleft = joy.getRawAxis(1);
+			axisYleft = joy.getRawAxis(2);
+			axisXright = joy.getRawAxis(4);
+			axisYright = joy.getRawAxis(5);
+			talon.set(axisXleft);
 		}
-		/*if (button == true) {
-			talon.set(.5);
-		} else if (button == false) {
-			talon.set(0);
-		}*/
+		/*
+		 * if (button == true) { talon.set(.5); } else if (button == false) {
+		 * talon.set(0); }
+		 */
 	}
 
 	/**
