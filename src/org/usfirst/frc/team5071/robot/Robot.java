@@ -1,6 +1,6 @@
 package org.usfirst.frc.team5071.robot;
 
-import org.usfirst.frc.team5071.robot.commands.AutonomousCommand;
+import org.usfirst.frc.team5071.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -33,10 +33,8 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
-
-		// instantiate the command used for the autonomous period
-		autonomousCommand = new AutonomousCommand();
 		joy = new Joystick(0);
+		autonomousCommand = new Autonomous();
 		talon.enableDeadbandElimination(true);
 
 	}
