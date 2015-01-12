@@ -26,7 +26,7 @@ public class Robot extends IterativeRobot {
 	private boolean AButton, BButton, XButton, YButton, RightBumper,
 			LeftBumper;
 	private double axisXleft, axisYleft, axisXright, axisYright, Trigger;
-	public Talon talon = new Talon(0);
+	public Talon leftMotor, rightMotor;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -36,7 +36,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		xbox = new Joystick(0);
 		autonomousCommand = new Autonomous();
-		talon.enableDeadbandElimination(true);
+		leftMotor = new Talon(0);
+		rightMotor = new Talon(1);
+		leftMotor.enableDeadbandElimination(true);
 
 	}
 
@@ -90,7 +92,7 @@ public class Robot extends IterativeRobot {
 			Trigger = xbox.getRawAxis(3);
 			axisXright = xbox.getRawAxis(4);
 			axisYright = xbox.getRawAxis(5);
-			talon.set(axisXleft);
+			leftMotor.set(axisXleft - axisYleft);
 		}
 		/*
 		 * if (button == true) { talon.set(.5); } else if (button == false) {
