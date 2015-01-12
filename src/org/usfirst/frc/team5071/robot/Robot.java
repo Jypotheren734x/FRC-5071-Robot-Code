@@ -23,7 +23,8 @@ public class Robot extends IterativeRobot {
 	private RobotDrive robit;
 	private Joystick xbox;
 	public Command autonomousCommand;
-	private boolean AButton, BButton, XButton, YButton, RightBumper,LeftBumper;
+	private boolean AButton, BButton, XButton, YButton, RightBumper,
+			LeftBumper;
 	private double axisXleft, axisYleft, axisXright, axisYright, Trigger;
 	public Talon talon = new Talon(0);
 
@@ -86,6 +87,7 @@ public class Robot extends IterativeRobot {
 		while (true) {
 			axisXleft = xbox.getRawAxis(1);
 			axisYleft = xbox.getRawAxis(2);
+			Trigger = xbox.getRawAxis(3);
 			axisXright = xbox.getRawAxis(4);
 			axisYright = xbox.getRawAxis(5);
 			talon.set(axisXleft);
