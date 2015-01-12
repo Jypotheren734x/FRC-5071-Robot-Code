@@ -39,6 +39,7 @@ public class Robot extends IterativeRobot {
 		leftMotor = new Talon(0);
 		rightMotor = new Talon(1);
 		leftMotor.enableDeadbandElimination(true);
+		rightMotor.enableDeadbandElimination(true);
 
 	}
 
