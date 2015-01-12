@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-	public RobotDrive robit;
-	public Joystick joy;
+	private RobotDrive robit;
+	private Joystick xbox;
 	public Command autonomousCommand;
-	public boolean AButton, BButton, XButton, YButton, RightBumper, LeftBumper;
-	public double axisXleft, axisYleft, axisXright, axisYright, Trigger;
+	private boolean AButton, BButton, XButton, YButton, RightBumper,LeftBumper;
+	private double axisXleft, axisYleft, axisXright, axisYright, Trigger;
 	public Talon talon = new Talon(0);
 
 	/**
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
-		joy = new Joystick(0);
+		xbox = new Joystick(0);
 		autonomousCommand = new Autonomous();
 		talon.enableDeadbandElimination(true);
 
@@ -79,15 +79,15 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		AButton = joy.getRawButton(1);
-		BButton = joy.getRawButton(2);
-		XButton = joy.getRawButton(3);
-		YButton = joy.getRawButton(4);
+		AButton = xbox.getRawButton(1);
+		BButton = xbox.getRawButton(2);
+		XButton = xbox.getRawButton(3);
+		YButton = xbox.getRawButton(4);
 		while (true) {
-			axisXleft = joy.getRawAxis(1);
-			axisYleft = joy.getRawAxis(2);
-			axisXright = joy.getRawAxis(4);
-			axisYright = joy.getRawAxis(5);
+			axisXleft = xbox.getRawAxis(1);
+			axisYleft = xbox.getRawAxis(2);
+			axisXright = xbox.getRawAxis(4);
+			axisYright = xbox.getRawAxis(5);
 			talon.set(axisXleft);
 		}
 		/*
