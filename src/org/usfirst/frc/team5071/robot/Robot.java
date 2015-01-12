@@ -93,6 +93,7 @@ public class Robot extends IterativeRobot {
 			axisXright = xbox.getRawAxis(4);
 			axisYright = xbox.getRawAxis(5);
 			leftMotor.set(axisXleft - axisYleft);
+			rightMotor.set(axisYleft - axisXleft);
 		}
 		/*
 		 * if (button == true) { talon.set(.5); } else if (button == false) {
