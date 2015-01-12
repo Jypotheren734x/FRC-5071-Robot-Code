@@ -86,6 +86,7 @@ public class Robot extends IterativeRobot {
 		AButton = xbox.getRawButton(1);
 		BButton = xbox.getRawButton(2);
 		XButton = xbox.getRawButton(3);
+		YButton = xbox.getRawButton(4);
 		axisXleft = xbox.getRawAxis(1);
 		axisYleft = xbox.getRawAxis(2);
 		Trigger = xbox.getRawAxis(3);
