@@ -5,7 +5,6 @@ import org.usfirst.frc.team5071.robot.commands.Autonomous;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -27,7 +26,6 @@ public class Robot extends IterativeRobot {
 			LeftBumper;
 	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger,
 			rightTrigger;
-
 	// private Talon leftMotor, rightMotor;
 
 	/**
