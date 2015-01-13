@@ -2,6 +2,7 @@ package org.usfirst.frc.team5071.robot;
 
 import org.usfirst.frc.team5071.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -22,10 +23,12 @@ public class Robot extends IterativeRobot {
 	private RobotDrive robit;
 	private Joystick xbox;
 	public Command autonomousCommand;
-	private boolean AButton, BButton, XButton, YButton, RightBumper,
-			LeftBumper;
+	public DriverStation station;
+	private boolean AButton, BButton, XButton, YButton, rightBumper,
+			leftBumper, startButton, stopButton;
 	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger,
 			rightTrigger;
+
 	// private Talon leftMotor, rightMotor;
 
 	/**
@@ -37,11 +40,14 @@ public class Robot extends IterativeRobot {
 		xbox = new Joystick(0);
 		robit = new RobotDrive(0, 1);
 		autonomousCommand = new Autonomous();
-		// leftMotor = new Talon(0);
-		// rightMotor = new Talon(1);
-		// leftMotor.enableDeadbandElimination(true);
-		// rightMotor.enableDeadbandElimination(true);
-
+		AButton = false;
+		BButton = false;
+		XButton = false;
+		YButton = false;
+		rightBumper = false;
+		leftBumper = false;
+		startButton = false;
+		stopButton = false;
 	}
 
 	public void disabledPeriodic() {
@@ -88,6 +94,8 @@ public class Robot extends IterativeRobot {
 		BButton = xbox.getRawButton(2);
 		XButton = xbox.getRawButton(3);
 		YButton = xbox.getRawButton(4);
+		stopButton = xbox.getRawButton(7);
+		startButton = xbox.getRawButton(8);
 		axisXleft = xbox.getRawAxis(0);
 		axisYleft = xbox.getRawAxis(1);
 		rightTrigger = xbox.getRawAxis(2);
@@ -102,7 +110,9 @@ public class Robot extends IterativeRobot {
 		} else {
 			robit.stopMotor();
 		}
-
+		if (startButton == true) {
+			station.release();
+		}
 	}
 
 	/**
@@ -168,20 +178,20 @@ public class Robot extends IterativeRobot {
 		YButton = yButton;
 	}
 
-	public boolean isRightBumper() {
-		return RightBumper;
+	public boolean isrightBumper() {
+		return rightBumper;
 	}
 
-	public void setRightBumper(boolean rightBumper) {
-		RightBumper = rightBumper;
+	public void setrightBumper(boolean rightBumper) {
+		rightBumper = rightBumper;
 	}
 
-	public boolean isLeftBumper() {
-		return LeftBumper;
+	public boolean isleftBumper() {
+		return leftBumper;
 	}
 
-	public void setLeftBumper(boolean leftBumper) {
-		LeftBumper = leftBumper;
+	public void setleftBumper(boolean leftBumper) {
+		leftBumper = leftBumper;
 	}
 
 	public double getAxisXleft() {
