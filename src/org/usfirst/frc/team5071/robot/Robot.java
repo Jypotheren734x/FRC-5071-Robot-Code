@@ -218,11 +218,20 @@ public class Robot extends IterativeRobot {
 		this.axisYright = axisYright;
 	}
 
-	public double getTrigger() {
+	public double getleftTrigger() {
 		return leftTrigger;
 	}
 
-	public void setTrigger(double trigger) {
-		leftTrigger = trigger;
+	public void setleftTrigger(double leftTrigger) {
+		this.leftTrigger = leftTrigger;
 	}
+
+	public double getrightTrigger() {
+		return rightTrigger;
+	}
+
+	public void setrightTrigger(double rightTrigger) {
+		this.rightTrigger = rightTrigger;
+	}
+
 }
