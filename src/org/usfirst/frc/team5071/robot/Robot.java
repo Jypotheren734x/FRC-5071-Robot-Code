@@ -25,8 +25,10 @@ public class Robot extends IterativeRobot {
 	public Command autonomousCommand;
 	private boolean AButton, BButton, XButton, YButton, RightBumper,
 			LeftBumper;
-	private double axisXleft, axisYleft, axisXright, axisYright, Trigger;
-	private Talon leftMotor, rightMotor;
+	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger,
+			rightTrigger;
+
+	// private Talon leftMotor, rightMotor;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -35,11 +37,12 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		xbox = new Joystick(0);
+		robit = new RobotDrive(0, 1);
 		autonomousCommand = new Autonomous();
-		leftMotor = new Talon(0);
-		rightMotor = new Talon(1);
-		leftMotor.enableDeadbandElimination(true);
-		rightMotor.enableDeadbandElimination(true);
+		// leftMotor = new Talon(0);
+		// rightMotor = new Talon(1);
+		// leftMotor.enableDeadbandElimination(true);
+		// rightMotor.enableDeadbandElimination(true);
 
 	}
 
@@ -87,13 +90,20 @@ public class Robot extends IterativeRobot {
 		BButton = xbox.getRawButton(2);
 		XButton = xbox.getRawButton(3);
 		YButton = xbox.getRawButton(4);
-		axisXleft = xbox.getRawAxis(1);
-		axisYleft = xbox.getRawAxis(2);
-		Trigger = xbox.getRawAxis(3);
+		axisXleft = xbox.getRawAxis(0);
+		axisYleft = xbox.getRawAxis(1);
+		rightTrigger = xbox.getRawAxis(2);
+		leftTrigger = xbox.getRawAxis(3);
 		axisXright = xbox.getRawAxis(4);
 		axisYright = xbox.getRawAxis(5);
-		leftMotor.set(axisXleft - axisYleft);
-		rightMotor.set(axisYleft - axisXleft);
+		robit.stopMotor();
+		if (leftTrigger == 1) {
+			robit.drive(.3, axisXleft - axisYleft);
+		} else if (rightTrigger == 1) {
+			robit.drive(-.3, axisXleft - axisYleft);
+		} else {
+			robit.stopMotor();
+		}
 
 	}
 
@@ -209,26 +219,10 @@ public class Robot extends IterativeRobot {
 	}
 
 	public double getTrigger() {
-		return Trigger;
+		return leftTrigger;
 	}
 
 	public void setTrigger(double trigger) {
-		Trigger = trigger;
-	}
-
-	public Talon getLeftMotor() {
-		return leftMotor;
-	}
-
-	public void setLeftMotor(Talon leftMotor) {
-		this.leftMotor = leftMotor;
-	}
-
-	public Talon getRightMotor() {
-		return rightMotor;
-	}
-
-	public void setRightMotor(Talon rightMotor) {
-		this.rightMotor = rightMotor;
+		leftTrigger = trigger;
 	}
 }
