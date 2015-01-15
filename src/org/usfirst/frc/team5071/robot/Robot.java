@@ -94,8 +94,11 @@ public class Robot extends IterativeRobot {
 		BButton = xbox.getRawButton(2);
 		XButton = xbox.getRawButton(3);
 		YButton = xbox.getRawButton(4);
+		rightBumper = xbox.getRawButton(5);
+		leftBumper = xbox.getRawButton(6);
 		stopButton = xbox.getRawButton(7);
 		startButton = xbox.getRawButton(8);
+		
 		axisXleft = xbox.getRawAxis(0);
 		axisYleft = xbox.getRawAxis(1);
 		rightTrigger = xbox.getRawAxis(2);
@@ -103,13 +106,15 @@ public class Robot extends IterativeRobot {
 		axisXright = xbox.getRawAxis(4);
 		axisYright = xbox.getRawAxis(5);
 		robit.stopMotor();
+		//Drive the robot
 		if (leftTrigger == 1) {
-			robit.drive(.3, axisXleft - axisYleft);
+			robit.drive(.5, axisXleft - axisYleft);
 		} else if (rightTrigger == 1) {
-			robit.drive(-.3, axisXleft - axisYleft);
+			robit.drive(-.5, axisXleft - axisYleft);
 		} else {
 			robit.stopMotor();
 		}
+		//Kill button
 		if (startButton == true) {
 			station.release();
 		}
