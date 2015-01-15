@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	Joystick Joy = new Joystick(1);
-	JoystickButton button = new JoystickButton(Joy, 12);
-
 	public OI() {
 	}
 }
