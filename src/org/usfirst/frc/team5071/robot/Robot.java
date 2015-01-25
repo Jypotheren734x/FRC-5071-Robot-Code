@@ -94,7 +94,7 @@ public class Robot extends IterativeRobot {
 		YButton = xbox.getRawButton(4);
 		rightBumper = xbox.getRawButton(5);
 		leftBumper = xbox.getRawButton(6);
-		stopButton = xbox.getRawButton(7);
+		setStopButton(xbox.getRawButton(7));
 		startButton = xbox.getRawButton(8);
 
 		axisXleft = xbox.getRawAxis(0);
@@ -243,6 +243,14 @@ public class Robot extends IterativeRobot {
 
 	public void setrightTrigger(double rightTrigger) {
 		this.rightTrigger = rightTrigger;
+	}
+
+	public boolean isStopButton() {
+		return stopButton;
+	}
+
+	public void setStopButton(boolean stopButton) {
+		this.stopButton = stopButton;
 	}
 
 }
