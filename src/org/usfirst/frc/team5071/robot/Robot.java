@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -21,13 +22,12 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	private RobotDrive robit;
+	private Talon talon;
 	private Joystick xbox;
 	public Command autonomousCommand;
 	public DriverStation station;
-	private boolean AButton, BButton, XButton, YButton, rightBumper,
-			leftBumper, startButton, stopButton;
-	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger,
-			rightTrigger;
+	private boolean AButton, BButton, XButton, YButton, rightBumper, leftBumper, startButton, stopButton;
+	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger, rightTrigger;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		xbox = new Joystick(0);
 		robit = new RobotDrive(0, 1);
+		talon = new Talon(3);
 		autonomousCommand = new Autonomous();
 		AButton = false;
 		BButton = false;
@@ -103,9 +104,10 @@ public class Robot extends IterativeRobot {
 		leftTrigger = xbox.getRawAxis(3);
 		axisXright = xbox.getRawAxis(4);
 		axisYright = xbox.getRawAxis(5);
+		talon.enableDeadbandElimination(true);
 		robit.stopMotor();
 		// Drive the robot
-		//robit.drive(axisYleft, axisXleft - axisYleft);
+		// robit.drive(axisYleft, axisXleft - axisYleft);
 		if (leftTrigger == 1) {
 			robit.drive(.7, axisXleft - axisYleft);
 		} else if (rightTrigger == 1) {
