@@ -115,6 +115,11 @@ public class Robot extends IterativeRobot {
 		} else {
 			robit.stopMotor();
 		}
+		if (AButton == true) {
+			talon.set(1);
+		} else if (AButton == false) {
+			talon.set(-1);
+		}
 		// Kill button
 		if (startButton == true) {
 			station.release();
