@@ -115,7 +115,7 @@ public class Robot extends IterativeRobot {
 		} else {
 			robit.stopMotor();
 		}
-		if (AButton == true) {
+		if (xbox.getPOV() == 1) {
 			talon.set(1);
 		}
 		// Kill button
