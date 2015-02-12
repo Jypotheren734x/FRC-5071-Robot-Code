@@ -106,8 +106,9 @@ public class Robot extends IterativeRobot {
 		axisYright = xbox.getRawAxis(5);
 		talon.enableDeadbandElimination(true);
 		robit.stopMotor();
-		// Drive the robot
-		// robit.drive(axisYleft, axisXleft - axisYleft);
+		// robit.tankDrive(axisXleft, axisXright);
+		// robit.arcadeDrive(axisYleft, axisXleft - axisYleft);
+		// Game drive
 		if (leftTrigger == 1) {
 			robit.drive(.7, axisXleft - axisYleft);
 		} else if (rightTrigger == 1) {
@@ -115,7 +116,8 @@ public class Robot extends IterativeRobot {
 		} else {
 			robit.stopMotor();
 		}
-		if (xbox.getPOV() == 1) {
+		// Lift
+		if (AButton == true) {
 			talon.set(1);
 		}
 		// Kill button
