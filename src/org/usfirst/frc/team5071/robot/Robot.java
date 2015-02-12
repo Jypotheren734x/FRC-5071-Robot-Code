@@ -192,7 +192,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void setrightBumper(boolean rightBumper) {
-		rightBumper = rightBumper;
+		this.rightBumper = rightBumper;
 	}
 
 	public boolean isleftBumper() {
@@ -200,7 +200,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void setleftBumper(boolean leftBumper) {
-		leftBumper = leftBumper;
+		this.leftBumper = leftBumper;
 	}
 
 	public double getAxisXleft() {
