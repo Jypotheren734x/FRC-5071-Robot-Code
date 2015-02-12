@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		xbox = new Joystick(0);
 		robit = new RobotDrive(0, 1);
-		talon = new Talon(3);
+		talon = new Talon(2);
 		autonomousCommand = new Autonomous();
 		AButton = false;
 		BButton = false;
