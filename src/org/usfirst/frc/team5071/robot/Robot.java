@@ -1,13 +1,10 @@
 package org.usfirst.frc.team5071.robot;
 
-import org.usfirst.frc.team5071.robot.commands.Autonomous;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -20,12 +17,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Robot extends IterativeRobot {
 
-	public static OI oi;
 	private RobotDrive robit;
 	private Talon talon;
 	private Joystick xbox;
-	public Command autonomousCommand;
-	public DriverStation station;
+	private DriverStation station;
 	private boolean AButton, BButton, XButton, YButton, rightBumper, leftBumper, startButton, stopButton;
 	private double axisXleft, axisYleft, axisXright, axisYright, leftTrigger, rightTrigger;
 
@@ -34,11 +29,9 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		oi = new OI();
 		xbox = new Joystick(0);
 		robit = new RobotDrive(0, 1);
 		talon = new Talon(2);
-		autonomousCommand = new Autonomous();
 		AButton = false;
 		BButton = false;
 		XButton = false;
@@ -53,12 +46,6 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 	}
 
-	public void autonomousInit() {
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
-	}
-
 	/**
 	 * This function is called periodically during autonomous
 	 */
@@ -71,9 +58,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
-		}
 	}
 
 	/**
@@ -81,7 +65,7 @@ public class Robot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
-
+		talon.stopMotor();
 	}
 
 	/**
@@ -95,31 +79,46 @@ public class Robot extends IterativeRobot {
 		YButton = xbox.getRawButton(4);
 		rightBumper = xbox.getRawButton(5);
 		leftBumper = xbox.getRawButton(6);
-		setStopButton(xbox.getRawButton(7));
+		stopButton = xbox.getRawButton(7);
 		startButton = xbox.getRawButton(8);
 
 		axisXleft = xbox.getRawAxis(0);
 		axisYleft = xbox.getRawAxis(1);
-		rightTrigger = xbox.getRawAxis(2);
-		leftTrigger = xbox.getRawAxis(3);
+		leftTrigger = xbox.getRawAxis(2);
+		rightTrigger = xbox.getRawAxis(3);
 		axisXright = xbox.getRawAxis(4);
 		axisYright = xbox.getRawAxis(5);
 		talon.enableDeadbandElimination(true);
-		robit.stopMotor();
-		// robit.tankDrive(axisXleft, axisXright);
-		// robit.arcadeDrive(axisYleft, axisXleft - axisYleft);
+		talon.set(0);
+		robit.arcadeDrive(axisYleft, axisXleft - axisYleft, true);
 		// Game drive
-		if (leftTrigger == 1) {
-			robit.drive(.7, axisXleft - axisYleft);
-		} else if (rightTrigger == 1) {
-			robit.drive(-.7, axisXleft - axisYleft);
-		} else {
-			robit.stopMotor();
-		}
+		// robit.tankDrive(-axisYleft, -axisYright, true);
+		/*
+		 * if (leftTrigger == 1) { robit.drive(.7, axisXleft - axisYleft); }
+		 * else if (rightTrigger == 1) { robit.drive(-.7, axisXleft -
+		 * axisYleft); } else { robit.stopMotor(); }
+		 */
 		// Lift
-		if (AButton == true) {
-			talon.set(1);
+		if (leftTrigger == 1) {
+			talon.set(-.2);
+			Scheduler.getInstance().run();
+		} else if (rightTrigger == 1) {
+			talon.set(.8);
+			Scheduler.getInstance().run();
+		} else {
+			talon.set(0);
+			Scheduler.getInstance().run();
 		}
+		// if (AButton == true) {
+		// talon.set(1);
+		// Timer.delay(5);
+		// talon.set(-1);
+		// Timer.delay(5);
+		// talon.set(0);
+		//
+		// } else {
+		// talon.set(0);
+		// }
 		// Kill button
 		if (startButton == true) {
 			station.release();
@@ -147,14 +146,6 @@ public class Robot extends IterativeRobot {
 
 	public void setXbox(Joystick xbox) {
 		this.xbox = xbox;
-	}
-
-	public Command getAutonomousCommand() {
-		return autonomousCommand;
-	}
-
-	public void setAutonomousCommand(Command autonomousCommand) {
-		this.autonomousCommand = autonomousCommand;
 	}
 
 	public boolean isAButton() {
