@@ -90,25 +90,32 @@ public class Robot extends IterativeRobot {
 		axisYright = xbox.getRawAxis(5);
 		talon.enableDeadbandElimination(true);
 		talon.set(0);
-		robit.arcadeDrive(axisYleft, axisXleft - axisYleft, true);
+		// robit.arcadeDrive(-axisYleft, -axisXleft + axisYleft, true);
 		// Game drive
-		// robit.tankDrive(-axisYleft, -axisYright, true);
-		/*
-		 * if (leftTrigger == 1) { robit.drive(.7, axisXleft - axisYleft); }
-		 * else if (rightTrigger == 1) { robit.drive(-.7, axisXleft -
-		 * axisYleft); } else { robit.stopMotor(); }
-		 */
-		// Lift
+		robit.tankDrive(-axisYleft, -axisYright, true);
+
 		if (leftTrigger == 1) {
-			talon.set(-.2);
-			Scheduler.getInstance().run();
+			robit.drive(.7, axisXleft - axisYleft);
 		} else if (rightTrigger == 1) {
+			robit.drive(-.7, axisXleft - axisYleft);
+		} else {
+			robit.stopMotor();
+		}
+		if (AButton == true) {
 			talon.set(.8);
-			Scheduler.getInstance().run();
+		} else if (BButton == true) {
+			talon.set(-.2);
 		} else {
 			talon.set(0);
-			Scheduler.getInstance().run();
 		}
+
+		// Lift
+		/*
+		 * if (leftTrigger == 1) { talon.set(-.2);
+		 * Scheduler.getInstance().run(); } else if (rightTrigger == 1) {
+		 * talon.set(.8); Scheduler.getInstance().run(); } else { talon.set(0);
+		 * Scheduler.getInstance().run(); }
+		 */
 		// if (AButton == true) {
 		// talon.set(1);
 		// Timer.delay(5);
