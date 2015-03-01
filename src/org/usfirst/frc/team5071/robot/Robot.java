@@ -105,10 +105,11 @@ public class Robot extends IterativeRobot {
 		axisYright = xbox.getRawAxis(5);
 		robit.stopMotor();
 		// Drive the robot
+		//robit.drive(axisYleft, axisXleft - axisYleft);
 		if (leftTrigger == 1) {
-			robit.drive(.5, axisXleft - axisYleft);
+			robit.drive(.7, axisXleft - axisYleft);
 		} else if (rightTrigger == 1) {
-			robit.drive(-.5, axisXleft - axisYleft);
+			robit.drive(-.7, axisXleft - axisYleft);
 		} else {
 			robit.stopMotor();
 		}
